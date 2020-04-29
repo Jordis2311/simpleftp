@@ -244,15 +244,14 @@ int main (int argc, char *argv[]) {
     // arguments checking
     int puerto;
     char ip[15],ip2[15];
-     printf("Ingrese puerto:" );
-     scanf(" %d",&puerto);
-     printf("Ingrese ip:" );
+    printf("Ingrese puerto:" );
+    scanf(" %d",&puerto);
+    printf("Ingrese ip:" );
     scanf(" %s",ip );
-     strcpy(ip2,ip);
-     if(valid_puertoip(ip,puerto)){
+    strcpy(ip2,ip);
+    if(valid_puertoip(ip,puerto)){
       printf("La ip %s y puerto %d son validos\n",ip2,puerto);
-
-      }
+    }
     else
       printf("La ip y el puerto no son validos\n" );
 
