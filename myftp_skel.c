@@ -183,11 +183,78 @@ void operate(int sd) {
  * Run with
  *         ./myftp <SERVER_IP> <SERVER_PORT>
  **/
+//argument checking
+int valid_number(char *str) {
+   while (*str) {
+      if(!isdigit(*str)){
+         return 0;
+      }
+      str++;
+   }
+   return 1;
+}
+int valid_ip(char *ip) {
+   int i, num, dots = 0;
+   char *ptr;
+   if (ip == NULL)
+      return 0;
+      ptr = strtok(ip, ".");
+      if (ptr == NULL)
+         return 0;
+   while (ptr) {
+      if (!valid_number(ptr))
+         return 0;
+         num = atoi(ptr);
+         if (num >= 0 && num <= 255) {
+            ptr = strtok(NULL, ".");
+            if (ptr != NULL)
+               dots++;
+         } else
+            return 0;
+    }
+    if (dots != 3)
+       return 0;
+      return 1;
+}
+
+int valid_puerto(int puerto){
+  if(puerto>0&&puerto<65536)
+    return 1;
+      else
+    return 0;
+
+}
+
+int valid_puertoip(char *ip,int puerto){
+
+    if(valid_ip(ip))
+      if(valid_puerto(puerto))
+          return 1;
+        else
+          return 0;
+      else
+        return 0;
+
+}
+
 int main (int argc, char *argv[]) {
     int sd;
     struct sockaddr_in addr;
 
     // arguments checking
+    int puerto;
+    char ip[15],ip2[15];
+     printf("Ingrese puerto:" );
+     scanf(" %d",&puerto);
+     printf("Ingrese ip:" );
+    scanf(" %s",ip );
+     strcpy(ip2,ip);
+     if(valid_puertoip(ip,puerto)){
+      printf("La ip %s y puerto %d son validos\n",ip2,puerto);
+
+      }
+    else
+      printf("La ip y el puerto no son validos\n" );
 
     // create socket and check for errors
     
